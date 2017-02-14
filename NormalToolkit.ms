@@ -109,13 +109,15 @@ rollout PointNormal "Point Normals" width:162 height:78
 	pickbutton 'selectpoint' "Select Point Helper" pos:[-1,2] width:150 height:21 toolTip:"Select Point Helper to determine Target Mesh normal origin" align:#left
 	checkbox 'inverted' "Invert" pos:[2,23] width:54 height:15 toolTip:"Invert normal direction" align:#left
 	
-	button 'apply' "Apply" pos:[151,2] width:54 height:21 toolTip:"Apply point normals to selection" align:#left
+	button 'apply' "Apply" pos:[151,2] width:54 height:21 toolTip:"Apply point normals to selection" align:#left enabled: false
 		
 	on selectpoint picked obj do
 	(
 	refpoint = obj
 	selectpoint.text = "Point Helper: "+obj.name
+	apply.enabled = true
 	)
+	
 	on apply pressed do
 	(
 	undo on
@@ -143,7 +145,7 @@ rollout CloneNormal "Cloned Normals" width:162 height:84
 (
 	pickbutton 'selectsrc' "Select Source Mesh" pos:[0,2] width:150 height:21 toolTip:"Select Source Mesh to clone normals from" align:#left
 	
-	button 'apply' "Apply" pos:[151,2] width:54 height:21 toolTip:"Apply cloned normals to selection" align:#left
+	button 'apply' "Apply" pos:[151,2] width:54 height:21 toolTip:"Apply cloned normals to selection" align:#left enabled:false
 	
 	on selectsrc picked obj do
 	(
@@ -151,6 +153,7 @@ rollout CloneNormal "Cloned Normals" width:162 height:84
 		(
 		srcmesh = obj
 		selectsrc.text = "Source Mesh: "+obj.name
+		apply.enabled = true
 		) else
 		(
 		--clear target mesh and button text
@@ -160,8 +163,10 @@ rollout CloneNormal "Cloned Normals" width:162 height:84
 		--play error ping
 		ssounds = dotNetClass "System.Media.SystemSounds"
 		ssounds.Hand.Play()
+		apply.enabled = false
 		)
 	)
+	
 	on apply pressed do
 	(
 	undo on
