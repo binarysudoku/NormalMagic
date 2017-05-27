@@ -89,7 +89,7 @@ rollout SpecifyNormal "Specify Normals" width:220 height:24
 		selectarr = selection as array
 		for i in selectarr do
 			(
-			if (polymesh_filt i) == 1 do
+			if polymesh_filt (i) == 1 do
 				(
 				try(convertToMesh i)catch()
 				specifynormals i
